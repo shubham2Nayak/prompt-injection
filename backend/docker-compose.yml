@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  prompttrace-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    container_name: prompttrace-backend
+    
+    ports:
+      - "8000:8000"
+    
+    environment:
+      - ENV=production
+      - LOG_LEVEL=INFO
+      - CUDA_VISIBLE_DEVICES=0
+      - MODEL_DEVICE=cuda
+      - MODEL_DTYPE=float16
+      - API_WORKERS=1
+      - RELOAD=false
+    
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/data/logs
+    
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+
+volumes:
+  data:
+  logs:

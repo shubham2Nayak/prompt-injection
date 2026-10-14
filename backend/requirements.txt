@@ -1,0 +1,67 @@
+# PromptTrace Backend Requirements
+# Production-grade backend for prompt injection propagation analysis
+
+# Core Framework
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.13.4
+pydantic-settings==2.15.0
+
+# LLM & NLP
+# Keep the HF ecosystem compatible with the current Python stack.
+# Older sentence-transformers releases expect `huggingface_hub.cached_download`,
+# which was removed in v1.x. Pinning to the stable pre-1.0 line avoids import errors.
+transformers==4.50.0
+huggingface-hub==0.26.2
+torch==2.5.1
+accelerate==1.0.1
+sentence-transformers==3.2.1
+# 8-bit / 4-bit weight quantization. The three resident models need ~13.6 GiB of
+# fp16 weights, which does not fit a 16 GB T4, so models/loader.py quantizes
+# whichever ones the VRAM budget requires. Requires a CUDA-capable GPU.
+bitsandbytes>=0.45.0
+langchain==0.3.27
+langchain-community==0.3.27
+langgraph==0.5.4
+langsmith==0.3.45
+
+# Vector Stores & Search
+# faiss-gpu (not faiss-cpu): the retrieval path embeds on the GPU, and a CPU-only
+# FAISS build cannot accept those tensors. With faiss-cpu installed,
+# faiss.StandardGpuResources does not exist, so the store silently fell back to a
+# CPU index and every search paid a blocking device-to-host copy of the query.
+# The -cu12 build matches the CUDA 12.x runtime that torch 2.5.1 links against.
+faiss-gpu-cu12>=1.8.0
+# CPU fallback for environments without a GPU wheel available. Install this INSTEAD
+# of faiss-gpu-cu12 and set FAISS_REQUIRE_GPU=false to run retrieval on CPU.
+
+# PDF Processing
+PyMuPDF==1.23.8
+
+# Utilities
+python-multipart==0.0.6
+python-dotenv==1.0.0
+networkx==3.2
+
+# Async & Concurrency
+# langgraph-sdk and langsmith require httpx >= 0.25.2, so this must be newer
+# than the older 0.25.1 pin to resolve the install conflict on Python 3.12.
+httpx==0.28.1
+aiofiles==23.2.1
+
+# Data Processing
+numpy==1.26.4
+scipy==1.11.4
+
+# Logging & Monitoring
+python-json-logger==2.0.7
+
+# Development (optional, for local development)
+# pytest==7.4.3
+# pytest-asyncio==0.21.1
+# black==23.11.0
+# flake8==6.1.0
+# mypy==1.7.1
+
+# Production Server
+gunicorn==21.2.0

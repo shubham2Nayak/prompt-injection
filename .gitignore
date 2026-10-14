@@ -1,0 +1,40 @@
+# Virtual environment
+venv/
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Research paper files (LaTeX, bibliography, etc.)
+*.cls
+*.tex
+*.bib
+*.bst
+
+# PDF samples
+*.pdf
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Lightning Studio
+.lightning_studio/
+
+# Freebuff
+.freebuff/
+
+# Modal cache
+.modal/

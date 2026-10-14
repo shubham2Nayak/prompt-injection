@@ -1,0 +1,83 @@
+# PromptTrace Backend - Python & Environment
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Data & Logs
+data/
+logs/
+*.log
+*.jsonl
+
+# Cache
+.cache/
+*.cache
+cache/
+
+# Model Cache
+huggingface_cache/
+.cache/huggingface
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary
+*.tmp
+*.temp
+.temp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+.dockerignore
+.docker/
+
+# PyTorch
+*.pt
+*.pth
+
+# FAISS indices
+*.bin
+*.pkl

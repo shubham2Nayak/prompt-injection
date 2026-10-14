@@ -1,0 +1,18 @@
+[theme]
+primaryColor = "#0066FF"
+backgroundColor = "#0E1117"
+secondaryBackgroundColor = "#161B22"
+textColor = "#FFFFFF"
+font = "sans serif"
+
+[client]
+showErrorDetails = true
+toolbarMode = "minimal"
+
+[logger]
+level = "info"
+
+[server]
+headless = true
+runOnSave = true
+maxUploadSize = 50
